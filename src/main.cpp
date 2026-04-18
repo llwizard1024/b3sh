@@ -1,10 +1,9 @@
+#include "b3sh/utils/helper.h"
+#include "b3sh/handlers/base.h"
 #include <iostream>
 #include <string>
-#include <vector>
-#include <unistd.h>
 #include <sys/wait.h>
-#include "b3sh/utils/helper.h"
-#include "b3sh/handler.h"
+#include <unistd.h>
 
 int main() {
     while (true) {
@@ -15,23 +14,18 @@ int main() {
             std::cout << std::endl;
             break;
         }
+        
+        utils::trim_string(command);
 
-        std::vector<std::string> commands = split_string(command, ' ');
-
-
-        if (commands.empty()) {
+        if (command.empty()) {
             continue;
         }
 
-        if (commands[0] == "exit") {
+        if (command == "exit") {
             break;
         }
-        
-        if (is_builtin_command(commands[0])) {
-            processing_builtin_command(commands);
-        } else {
-            execute_command(commands);
-        }
+
+        handlers::process_input(command);
     }
 
     return 0;

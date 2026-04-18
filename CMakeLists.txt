@@ -10,7 +10,13 @@ add_executable(b3sh src/main.cpp)
 
 target_sources(b3sh PRIVATE
     src/utils/helper.cpp
-    src/handler.cpp
+    src/handlers/base.cpp
+    src/handlers/builtin.cpp
+    src/handlers/app.cpp
+    src/commands/cd.cpp
+    src/commands/export.cpp
+    src/commands/pwd.cpp
+
 )
 target_include_directories(b3sh PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
