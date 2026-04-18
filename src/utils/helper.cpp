@@ -53,7 +53,7 @@ void trim_string(std::string& str) {
         return;
     }
 
-    int start_index = 0, end_index = str.size();
+    int start_index = 0;
 
     for (size_t i = 0; i < str.size(); ++i) {
         if (str[i] == ' ') {
@@ -62,6 +62,10 @@ void trim_string(std::string& str) {
             break;
         }
     }
+
+    str.erase(0, start_index);
+
+    int end_index = str.size();
     
     for (size_t i = str.size() - 1; i > 0; --i) {
         if (str[i] == ' ') {
@@ -71,7 +75,6 @@ void trim_string(std::string& str) {
         }
     }
 
-    str.erase(0, start_index);
     str.erase(end_index);
 }
 } //namespace utils
