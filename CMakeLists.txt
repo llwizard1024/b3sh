@@ -13,9 +13,11 @@ target_sources(b3sh PRIVATE
     src/handlers/base.cpp
     src/handlers/builtin.cpp
     src/handlers/app.cpp
+    src/handlers/pipe.cpp
     src/commands/cd.cpp
     src/commands/export.cpp
     src/commands/pwd.cpp
+    src/terminal/input.cpp
 
 )
 target_include_directories(b3sh PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)

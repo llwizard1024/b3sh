@@ -1,19 +1,16 @@
 #include "b3sh/utils/helper.h"
 #include "b3sh/handlers/base.h"
+#include "b3sh/terminal/input.h"
 #include <iostream>
-#include <string>
-#include <sys/wait.h>
+#include <termios.h>
 #include <unistd.h>
 
 int main() {
-    while (true) {
-        std::string command;
+    std::vector<std::string> command_history;
 
-        std::cout << "b3sh> ";
-        if (!std::getline(std::cin, command)) {
-            std::cout << std::endl;
-            break;
-        }
+    while (true) {
+        terminal::clear_line();
+        std::string command = terminal::handle_input(command_history);
         
         utils::trim_string(command);
 
@@ -22,9 +19,15 @@ int main() {
         }
 
         if (command == "exit") {
+            std::cout << '\n' << std::flush;
             break;
         }
 
+        if (!command.empty() && (command_history.empty() || command_history.back() != command)) {
+            command_history.push_back(command);
+        }
+
+        std::cout << '\n';
         handlers::process_input(command);
     }
 
