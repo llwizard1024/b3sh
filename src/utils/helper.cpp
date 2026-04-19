@@ -25,7 +25,7 @@ std::vector<std::string> split_string(const std::string &str, const char delimit
                 ++i;
             }
 
-            result.push_back(str.substr(start + 1, i - start));
+            result.push_back(str.substr(start + 1, i - start - 2));
         } else {
             size_t start = i;
             while (i < n && str[i] != delimiter) {
