@@ -18,6 +18,7 @@ target_sources(b3sh PRIVATE
     src/commands/export.cpp
     src/commands/pwd.cpp
     src/terminal/input.cpp
+    src/terminal/completion.cpp
 
 )
 target_include_directories(b3sh PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)

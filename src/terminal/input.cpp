@@ -1,4 +1,5 @@
 #include "b3sh/terminal/input.h"
+#include "b3sh/terminal/completion.h"
 
 #include <iostream>
 
@@ -102,6 +103,43 @@ std::string handle_input(std::vector<std::string>& history) {
                 buffer = "exit";
                 return buffer;
             }
+        } else if (symbol == '\t') {
+            std::string command;
+            int findIndex = 0;
+
+            for (size_t i = buffer.size() - 1; i > 0; --i) {
+                if (buffer[i] == ' ') {
+                    command = buffer.substr(i + 1); 
+                    findIndex = i + 1;
+                    break;
+                }
+            }
+
+            if (findIndex == 0) {
+                command = buffer;
+            }
+
+            std::vector<std::string> matches = get_all_matches(command);
+
+            if (matches.size() == 0) {
+                continue;
+            } else if (matches.size() == 1) {
+                buffer.replace(findIndex, matches[0].size(), matches[0]);
+                cursor_pos = buffer.size();
+                clear_line();
+                std::cout << buffer << std::flush;
+                continue;
+            } else {
+                std::cout << std::endl;
+                for (const auto& element : matches) {
+                    std::cout << "\033[2K\r";
+                    std::cout << element << std::endl << std::flush;
+                }
+
+                clear_line();
+                std::cout << buffer << std::flush;
+            }
+
         } else if (symbol >= 32 && symbol <= 126) { // ASCII symbols
             buffer.insert(cursor_pos, 1, symbol);
             cursor_pos++;

@@ -4,6 +4,9 @@
 
 #include <string>
 #include <vector>
+#include <array>
+
+inline const std::array<const char*, 3> BUILTIN_COMMANDS = {"cd", "pwd", "export"};
 
 namespace utils{
 std::vector<std::string> split_string(const std::string &str,

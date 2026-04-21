@@ -1,7 +1,5 @@
 #include "b3sh/utils/helper.h"
 
-const char *const BUILTIN_COMMANDS[] = {"cd", "pwd", "export"};
-
 namespace utils{
 std::vector<std::string> split_string(const std::string &str, const char delimiter) {
     std::vector<std::string> result;
