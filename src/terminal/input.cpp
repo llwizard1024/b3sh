@@ -91,6 +91,17 @@ std::string handle_input(std::vector<std::string>& history) {
                         break;
                 }
             }
+        } else if (symbol == '\x03') {
+            buffer.clear();
+            cursor_pos = 0;
+            history_index = history.size();
+            clear_line();
+            continue;
+        } else if (symbol == '\x04') {
+            if (buffer.empty()) {
+                buffer = "exit";
+                return buffer;
+            }
         } else if (symbol >= 32 && symbol <= 126) { // ASCII symbols
             buffer.insert(cursor_pos, 1, symbol);
             cursor_pos++;
