@@ -1,7 +1,5 @@
 # b3sh - Be Free Shell.
 
-# b3sh – A Custom Linux Shell
-
 `b3sh` is a simple interactive UNIX command line interpreter written in C++.  
 It implements core shell features like process execution, pipelines, raw input mode, persistent command history, and tab completion.  
 This project was built to gain a deep understanding of system calls, terminal handling, and process management in Linux.
