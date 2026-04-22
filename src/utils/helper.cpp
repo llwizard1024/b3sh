@@ -75,4 +75,17 @@ void trim_string(std::string& str) {
 
     str.erase(end_index);
 }
+
+std::string get_history_file_path() {
+    char* home_env = std::getenv("HOME");
+
+    if (home_env == nullptr) {
+        return "";
+    }
+
+    std::string path_to_history_file(home_env);
+    path_to_history_file.append("/.b3sh_history");
+
+    return path_to_history_file;
+}
 } //namespace utils

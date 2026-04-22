@@ -13,6 +13,7 @@ std::vector<std::string> split_string(const std::string &str,
                                       const char delimiter);
 bool is_builtin_command(const std::string &command);
 void trim_string(std::string& str);
+std::string get_history_file_path();
 } // namepsace utils
 
 #endif

@@ -1,13 +1,14 @@
 #include "b3sh/utils/helper.h"
 #include "b3sh/handlers/base.h"
 #include "b3sh/terminal/input.h"
+#include "b3sh/utils/fs.h"
 #include <iostream>
 #include <termios.h>
 #include <unistd.h>
 
 int main() {
-    std::vector<std::string> command_history;
-
+    std::vector<std::string> command_history = utils::load_history();
+    
     while (true) {
         terminal::clear_line();
         std::string command = terminal::handle_input(command_history);
@@ -30,6 +31,8 @@ int main() {
         std::cout << '\n';
         handlers::process_input(command);
     }
+
+    utils::write_history(command_history);
 
     return 0;
 }

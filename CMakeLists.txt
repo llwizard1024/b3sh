@@ -10,6 +10,7 @@ add_executable(b3sh src/main.cpp)
 
 target_sources(b3sh PRIVATE
     src/utils/helper.cpp
+    src/utils/fs.cpp
     src/handlers/base.cpp
     src/handlers/builtin.cpp
     src/handlers/app.cpp

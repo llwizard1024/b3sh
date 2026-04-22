@@ -44,8 +44,13 @@ std::unordered_set<std::string> get_all_commands() {
 }
 
 std::vector<std::string> get_all_matches(const std::string& str) {
-    std::unordered_set<std::string> all_commands = get_all_commands();
     std::vector<std::string> command_matches;
+
+    if (str.empty()) {
+        return command_matches;
+    }
+
+    std::unordered_set<std::string> all_commands = get_all_commands();
 
     for (const auto& element : all_commands) {
         if (element.substr(0, str.size()) == str) {

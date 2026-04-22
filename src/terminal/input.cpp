@@ -15,6 +15,18 @@ void move_cursor_left(int n) {
         std::cout << "\033[" << n << "D" << std::flush;
     }
 }
+
+void backspace_press(size_t& cursor_pos, std::string& buffer) {
+    if (cursor_pos > 0) {
+        buffer.erase(cursor_pos - 1, 1);
+        cursor_pos--;
+
+        terminal::clear_line();
+        std::cout << buffer << std::flush;
+
+        move_cursor_left(buffer.size() - cursor_pos);
+    }
+}
 }
 
 namespace terminal{
@@ -42,15 +54,7 @@ std::string handle_input(std::vector<std::string>& history) {
         if (symbol == '\n' || symbol == '\r') {
             break;
         } else if (symbol == '\b' || symbol == 0x7f) {
-            if (cursor_pos > 0) {
-                buffer.erase(cursor_pos - 1, 1);
-                cursor_pos--;
-
-                clear_line();
-                std::cout << buffer << std::flush;
-
-                move_cursor_left(buffer.size() - cursor_pos);
-            }
+            backspace_press(cursor_pos, buffer);
         } else if (symbol == '\033') {
             char seq[2];
             if (read(STDIN_FILENO, &seq[0], 1) == -1) continue;
@@ -107,7 +111,7 @@ std::string handle_input(std::vector<std::string>& history) {
             std::string command;
             int findIndex = 0;
 
-            for (size_t i = buffer.size() - 1; i > 0; --i) {
+            for (int i = cursor_pos - 1; i > 0; --i) {
                 if (buffer[i] == ' ') {
                     command = buffer.substr(i + 1); 
                     findIndex = i + 1;
@@ -124,7 +128,7 @@ std::string handle_input(std::vector<std::string>& history) {
             if (matches.size() == 0) {
                 continue;
             } else if (matches.size() == 1) {
-                buffer.replace(findIndex, matches[0].size(), matches[0]);
+                buffer.replace(findIndex, command.size(), matches[0]);
                 cursor_pos = buffer.size();
                 clear_line();
                 std::cout << buffer << std::flush;
