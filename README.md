@@ -1,3 +1,4 @@
+![Build Status](https://github.com/llwizard1024/b3sh/actions/workflows/build.yml/badge.svg)
 # b3sh - Be Free Shell.
 
 `b3sh` is a simple interactive UNIX command line interpreter written in C++.  
